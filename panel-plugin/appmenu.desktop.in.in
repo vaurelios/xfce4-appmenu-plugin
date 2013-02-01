@@ -1,0 +1,8 @@
+[Xfce Panel]
+Type=X-XFCE-PanelPlugin
+Encoding=UTF-8
+_Name=Indicator Appmenu Plugin
+_Comment=Enjoy globalmenu support !
+Icon=xfce4-appmenu-plugin
+X-XFCE-Exec=@libexecdir@/xfce4/panel-plugins/xfce4-appmenu-plugin
+#X-XFCE-Unique=true

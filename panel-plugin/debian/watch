@@ -1,0 +1,3 @@
+version=3
+http://archive.xfce.org/src/panel-plugins/xfce4-appmenu-plugin/([\d\.]+)/ \
+	xfce4-appmenu-plugin-([\d\.]+)\.tar\.(?:gz|bz2)

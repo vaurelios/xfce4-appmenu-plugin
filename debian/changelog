@@ -1,0 +1,217 @@
+xfce4-appmenu-plugin (0.3.1-1ubuntu3) oneiric; urgency=low
+
+  * debian/patches:
+    - 02_fix-menu-position.patch,
+      03_attach-button-to-menu-right-at-the-beginning.patch: added, as suggested
+      by upstream to fix incorrect menu positioning.
+    - series: enable these patches.
+  * debian/rules:
+    - add quilt files to POTFILES.skip and remove them at clean time.
+
+ -- Lionel Le Folgoc <mrpouit@ubuntu.com>  Fri, 02 Sep 2011 23:25:31 +0200
+
+xfce4-appmenu-plugin (0.3.1-1ubuntu2) oneiric; urgency=low
+
+  * Change recommends from indicator-messages to indicator-messages-gtk2 to
+    restore the messaging indicator in Xfce
+    - update debian/control 
+
+ -- Micah Gersten <micahg@ubuntu.com>  Thu, 28 Jul 2011 22:54:50 -0500
+
+xfce4-appmenu-plugin (0.3.1-1ubuntu1) oneiric; urgency=low
+
+  * Merge from Debian unstable, remaining Ubuntu changes:
+    - debian/patches:
+      + 01_search-for-indicator-0.4-pc.patch: libindicator-dev .pc file was
+        renamed, update configure{,.in} to search for the new name. lp: #808009
+      + xubuntu_exclude-modules.patch: add a blacklist option. Some modules
+        are unneeded/redundant/badly work on Xubuntu (e.g. appmenu), so give
+        the possibility to ignore them. Refreshed to apply cleanly.
+      + series: refreshed.
+
+ -- Lionel Le Folgoc <mrpouit@ubuntu.com>  Mon, 25 Jul 2011 00:30:26 +0200
+
+xfce4-appmenu-plugin (0.3.1-1) unstable; urgency=low
+
+  * New upstream release.
+    + Supports transparent background                               LP:#778998
+
+ -- Evgeni Golov <evgeni@debian.org>  Fri, 15 Jul 2011 15:27:20 +0200
+
+xfce4-appmenu-plugin (0.2.1-1ubuntu2) oneiric; urgency=low
+
+  * debian/patches:
+    - 01_search-for-indicator-0.4-pc.patch: libindicator-dev .pc file was
+      renamed, update configure{,.in} to search for the new name. lp: #808009
+    - series: add this patch.
+
+ -- Lionel Le Folgoc <mrpouit@ubuntu.com>  Sat, 09 Jul 2011 22:17:07 +0200
+
+xfce4-appmenu-plugin (0.2.1-1ubuntu1) oneiric; urgency=low
+
+  * Merge from Debian unstable, remaining Ubuntu changes:
+    - debian/patches:
+      + 0004-cherry-pick-vertical-panel-fixes.patch: cherry-pick from upstream
+        4e55a3d7292bd4f15b1555530f58e559cb99e965
+        2c0cc99c948d1b5e1ff5fb11057a6bb549849a2d
+        Fixes vertical panel issue with indicators (LP: #787977)
+      + xubuntu_exclude-modules.patch: add a blacklist option. Some modules
+        are unneeded/redundant/badly work on Xubuntu (e.g. appmenu), so give
+        the possibility to ignore them.
+      + series: refreshed.
+
+ -- Lionel Le Folgoc <mrpouit@ubuntu.com>  Sun, 26 Jun 2011 01:24:54 +0200
+
+xfce4-appmenu-plugin (0.2.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Yves-Alexis Perez <corsac@debian.org>  Fri, 06 May 2011 22:33:52 +0200
+
+xfce4-appmenu-plugin (0.2.0-2) unstable; urgency=low
+
+  [ Lionel Le Folgoc ]
+  * Upload to unstable.
+  * debian/control:
+    - add myself to Uploaders.
+    - remove Simon and Emanuele from uploaders, thanks to them.
+    - bump xfce4-panel-dev b-dep to (>= 4.8.0).
+
+  [ Yves-Alexis Perez ]
+  * debian/control:
+    - update standards version to 3.9.2.
+
+ -- Lionel Le Folgoc <mrpouit@gmail.com>  Tue, 19 Apr 2011 23:02:15 +0200
+
+xfce4-appmenu-plugin (0.2.0-0ubuntu5) oneiric; urgency=low
+
+  * debian/patches:
+    - 0004-cherry-pick-vertical-panel-fixes.patch: cherry-pick from upstreamt
+      4e55a3d7292bd4f15b1555530f58e559cb99e965
+      2c0cc99c948d1b5e1ff5fb11057a6bb549849a2d
+      Fixes vertical panel issue with indicators (LP: #787977)
+
+ -- Stéphane Graber <stgraber@ubuntu.com>  Wed, 25 May 2011 13:27:24 -0400
+
+xfce4-appmenu-plugin (0.2.0-0ubuntu4) natty; urgency=low
+
+  * debian/patches:
+    - xubuntu_exclude-modules.patch: add a blacklist option. Some modules are
+      unneeded/redundant/badly work on Xubuntu (e.g. appmenu), so give the
+      possibility to ignore them.
+    - series: add this patch.
+
+ -- Lionel Le Folgoc <mrpouit@ubuntu.com>  Tue, 08 Mar 2011 21:16:44 +0100
+
+xfce4-appmenu-plugin (0.2.0-0ubuntu3) natty; urgency=low
+
+  * debian/patches:
+    - 0002-set-up-indicators-with-only-one-function-some-set-he.patch:
+      set up indicators in a consistent way whether they have some submenus
+      or not.
+    - 0003-relay-the-scroll-event-signals-to-the-indicators-use.patch: fix
+      missing support for volume changes on scroll event in indicator-sound.
+    - series: add these patches.
+
+ -- Lionel Le Folgoc <mrpouit@ubuntu.com>  Thu, 24 Feb 2011 22:37:21 +0100
+
+xfce4-appmenu-plugin (0.2.0-0ubuntu2) natty; urgency=low
+
+  * debian/patches:
+    - 0001-Add-entry_-added-removed-signal-handlers.patch: added, fix
+      invisible entries (nm-applet, transmission…).
+    - series: enable this patch.
+
+ -- Lionel Le Folgoc <mrpouit@ubuntu.com>  Mon, 21 Feb 2011 19:56:12 +0100
+
+xfce4-appmenu-plugin (0.2.0-0ubuntu1) natty; urgency=low
+
+  * Resync with pkg-xfce (svn r4981).
+
+ -- Lionel Le Folgoc <mrpouit@ubuntu.com>  Sat, 19 Feb 2011 11:59:37 +0100
+
+xfce4-appmenu-plugin (0.2.0-1) experimental; urgency=low
+
+  [ Yves-Alexis Perez ]
+  * New upstream release.
+  * debian/control:
+    - add build-dep on hardening-includes
+    - update standards version to 3.9.1.
+  * debian/rules:
+    - pick {C,LD}FLAGS from dpkg-buildflags
+    - add -O1, --as-needed and -z,defs to LDFLAGS
+    - add hardening flags to {C,LD}FLAGS
+  * debian/watch updated.
+  * debian/patches:
+    - 01_libindicator0.3.0_compat dropped, included upstream.
+    - 02_menu_on_no-indicators as well. 
+    - 03_skip_pofiles_in_patches removed, now useless. 
+
+  [ Evgeni Golov ]
+  * debian/copyright:
+    - Update years.
+    - Add Yves-Alexis.
+    - Fix upstream URL.
+
+ -- Evgeni Golov <evgeni@debian.org>  Sun, 27 Feb 2011 14:44:16 +0100
+
+xfce4-appmenu-plugin (0.0.1-2ubuntu5) natty; urgency=low
+
+  * debian/control
+    - Bump build-depends for libindicator-dev to >= 0.3.19
+
+ -- Ken VanDine <ken.vandine@canonical.com>  Thu, 17 Feb 2011 16:30:38 -0500
+
+xfce4-appmenu-plugin (0.0.1-2ubuntu4) natty; urgency=low
+
+  * No change rebuild against current libindicator
+
+ -- Bhavani Shankar <bhavi@ubuntu.com>  Fri, 14 Jan 2011 12:53:52 +0530
+
+xfce4-appmenu-plugin (0.0.1-2ubuntu3) natty; urgency=low
+
+  * No-change rebuild against new xfce4-panel abi for external plugins.
+  * Bump xfce4-panel-dev b-dep to >= 4.7.7 to force using the new version.
+
+ -- Lionel Le Folgoc <mrpouit@ubuntu.com>  Tue, 04 Jan 2011 20:50:50 +0100
+
+xfce4-appmenu-plugin (0.0.1-2ubuntu2) natty; urgency=low
+
+  * No change rebuild against xfce4-panel 4.7.
+
+ -- Lionel Le Folgoc <mrpouit@ubuntu.com>  Sun, 05 Dec 2010 12:20:26 +0100
+
+xfce4-appmenu-plugin (0.0.1-2ubuntu1) maverick-proposed; urgency=low
+
+  * rename debian/patches/01_libindicator0.3.0_compat.patch to
+    01_libindicator0.4.0_compat.patch; change the path for looking the
+    libindicator objects from 3 to 4; add it to POTFILES.skip
+    (LP: #659675)
+  * debian/patches/03_skip_pofiles_in_patches.patch: refreshed
+
+ -- Didier Roche <didrocks@ubuntu.com>  Wed, 13 Oct 2010 10:17:14 +0200
+
+xfce4-appmenu-plugin (0.0.1-2build1) maverick; urgency=low
+
+  * Rebuild for libindicator ABI change (LP: #637692)
+  * debian/control: depends on latest libindicator-dev 
+
+ -- Didier Roche <didrocks@ubuntu.com>  Wed, 22 Sep 2010 11:33:06 +0200
+
+xfce4-appmenu-plugin (0.0.1-2) unstable; urgency=low
+
+  * debian/control:
+    + Add Provides: indicator-renderer
+    + Add Recommends: indicator-messages
+  * debian/patches/02_menu_on_no-indicators.patch
+    + Display a menu even when there are no indicators.        closes: #587167
+  * debian/patches/03_skip_pofiles_in_patches.patch
+    + Split the POTFILES.skip patch out, list all changed files in there.
+
+ -- Evgeni Golov <evgeni@debian.org>  Wed, 14 Jul 2010 09:35:08 +0200
+
+xfce4-appmenu-plugin (0.0.1-1) unstable; urgency=low
+
+  * Initial release                                            closes: #534555
+
+ -- Evgeni Golov <evgeni@debian.org>  Sun, 13 Jun 2010 17:14:30 +0200

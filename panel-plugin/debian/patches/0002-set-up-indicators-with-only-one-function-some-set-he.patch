@@ -1,0 +1,45 @@
+From 7307f54ea39f376d6938f81ea1712e8ce49f7af9 Mon Sep 17 00:00:00 2001
+From: Lionel Le Folgoc <lionel@lefolgoc.net>
+Date: Thu, 24 Feb 2011 22:03:29 +0100
+Subject: set up indicators with only one function (some set here where missing a few signal handlers)
+
+Patch slightly modified for Xubuntu to add the po/POTFILES.skip change.
+---
+ panel-plugin/indicator.c |   19 +------------------
+ 1 files changed, 1 insertions(+), 18 deletions(-)
+
+diff --git a/panel-plugin/indicator.c b/panel-plugin/indicator.c
+index 1c66999..52b8ece 100644
+--- a/panel-plugin/indicator.c
++++ b/panel-plugin/indicator.c
+@@ -377,24 +377,7 @@ load_module (const gchar * name, GtkWidget * menu)
+ 
+ 	for (entry = entries; entry != NULL; entry = g_list_next(entry)) {
+ 		IndicatorObjectEntry * entrydata = (IndicatorObjectEntry *)entry->data;
+-
+-		GtkWidget * menuitem = gtk_menu_item_new();
+-		GtkWidget * hbox = gtk_hbox_new(FALSE, 3);
+-		if (entrydata->image != NULL) {
+-			gtk_box_pack_start(GTK_BOX(hbox), GTK_WIDGET(entrydata->image), FALSE, FALSE, 0);
+-		}
+-		if (entrydata->label != NULL) {
+-			gtk_box_pack_start(GTK_BOX(hbox), GTK_WIDGET(entrydata->label), FALSE, FALSE, 0);
+-		}
+-		gtk_container_add(GTK_CONTAINER(menuitem), hbox);
+-		gtk_widget_show(hbox);
+-
+-		if (entrydata->menu != NULL) {
+-			gtk_menu_item_set_submenu(GTK_MENU_ITEM(menuitem), GTK_WIDGET(entrydata->menu));
+-		}
+-
+-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+-		gtk_widget_show(menuitem);
++		entry_added(io, entrydata, menu);
+ 	}
+ 
+ 	g_list_free(entries);
+--- xfce4-appmenu-plugin-0.2.0.orig/po/POTFILES.skip
++++ xfce4-appmenu-plugin-0.2.0/po/POTFILES.skip
+@@ -1 +1,2 @@
+ .pc/0001-Add-entry_-added-removed-signal-handlers.patch/panel-plugin/indicator.c
++.pc/0002-set-up-indicators-with-only-one-function-some-set-he.patch/panel-plugin/indicator.c

@@ -1,0 +1,24 @@
+Source: xfce4-appmenu-plugin
+Section: xfce
+Priority: optional
+Maintainer: Xubuntu Developers <xubuntu-devel@lists.ubuntu.com>
+XSBC-Original-Maintainer: Debian Xfce Maintainers <pkg-xfce-devel@lists.alioth.debian.org>
+Uploaders: Yves-Alexis Perez <corsac@debian.org>, 
+ Emanuele Rocca <ema@debian.org>, Simon Huggins <huggie@earth.li>, 
+ Evgeni Golov <evgeni@debian.org>
+Build-Depends: debhelper (>= 7), libxfcegui4-dev, xfce4-panel-dev, 
+ libindicator-dev (>=0.3.19), intltool, hardening-includes
+Standards-Version: 3.9.1
+Homepage: http://goodies.xfce.org/projects/panel-plugins/xfce4-appmenu-plugin/
+Vcs-Svn: svn://svn.debian.org/pkg-xfce/goodies/trunk/xfce4-appmenu-plugin/
+Vcs-Browser: http://svn.debian.org/wsvn/pkg-xfce/goodies/trunk/xfce4-appmenu-plugin/
+
+Package: xfce4-appmenu-plugin
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: indicator-renderer
+Recommends: indicator-messages
+Description: plugin to display information from applications in the Xfce4 panel
+ A small plugin to display information from various applications consistently
+ in the Xfce4 panel as described in Ubuntus MessagingMenu design specification.
+

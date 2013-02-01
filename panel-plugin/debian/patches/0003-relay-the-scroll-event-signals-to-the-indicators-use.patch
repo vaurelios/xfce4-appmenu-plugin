@@ -1,0 +1,58 @@
+From ff9f26a33fc662129fa61078e10573098e81e634 Mon Sep 17 00:00:00 2001
+From: Lionel Le Folgoc <lionel@lefolgoc.net>
+Date: Thu, 24 Feb 2011 22:15:39 +0100
+Subject: relay the 'scroll-event' signals to the indicators (used e.g. by indicator-sound to change the volume).
+
+Patch slightly modified for Xubuntu to add the po/POTFILES.skip change.
+---
+ panel-plugin/indicator.c |   18 ++++++++++++++++++
+ 1 files changed, 18 insertions(+), 0 deletions(-)
+
+diff --git a/panel-plugin/indicator.c b/panel-plugin/indicator.c
+index 52b8ece..7c2ed6f 100644
+--- a/panel-plugin/indicator.c
++++ b/panel-plugin/indicator.c
+@@ -308,12 +308,29 @@ indicator_construct (XfcePanelPlugin *plugin)
+ }
+ 
+ 
++static gboolean
++entry_scrolled (GtkWidget *menuitem, GdkEventScroll *event, gpointer data)
++{
++  IndicatorObject *io = g_object_get_data (G_OBJECT (menuitem), "indicator-custom-object-data");
++  IndicatorObjectEntry *entry = g_object_get_data (G_OBJECT (menuitem), "indicator-custom-entry-data");
++
++  g_return_val_if_fail(INDICATOR_IS_OBJECT(io), FALSE);
++
++  g_signal_emit_by_name (io, "scroll", 1, event->direction);
++  g_signal_emit_by_name (io, "scroll-entry", entry, 1, event->direction);
++
++  return FALSE;
++}
++
++
+ static void
+ entry_added (IndicatorObject * io, IndicatorObjectEntry * entry, gpointer user_data)
+ {
+   GtkWidget * menuitem = gtk_menu_item_new();
+   GtkWidget * hbox = gtk_hbox_new(FALSE, 3);
+ 
++  g_signal_connect(G_OBJECT(menuitem), "scroll-event", G_CALLBACK(entry_scrolled), entry);
++
+   if (entry->image != NULL)
+     gtk_box_pack_start(GTK_BOX(hbox), GTK_WIDGET(entry->image), FALSE, FALSE, 0);
+ 
+@@ -329,6 +346,7 @@ entry_added (IndicatorObject * io, IndicatorObjectEntry * entry, gpointer user_d
+   gtk_menu_shell_append(GTK_MENU_SHELL(user_data), menuitem);
+   gtk_widget_show(menuitem);
+ 
++  g_object_set_data(G_OBJECT(menuitem), "indicator-custom-object-data", io);
+   g_object_set_data(G_OBJECT(menuitem), "indicator-custom-entry-data", entry);
+ }
+ 
+--- xfce4-appmenu-plugin-0.2.0.orig/po/POTFILES.skip
++++ xfce4-appmenu-plugin-0.2.0/po/POTFILES.skip
+@@ -1,2 +1,3 @@
+ .pc/0001-Add-entry_-added-removed-signal-handlers.patch/panel-plugin/indicator.c
+ .pc/0002-set-up-indicators-with-only-one-function-some-set-he.patch/panel-plugin/indicator.c
++.pc/0003-relay-the-scroll-event-signals-to-the-indicators-use.patch/panel-plugin/indicator.c

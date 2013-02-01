@@ -1,0 +1,30 @@
+# Brazilian Portuguese translation for xfce4-appmenu-plugin.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Og Maciel <ogmaciel@gnome.org>, 2009.
+# Sérgio Cipolla <secipolla@gmail.com>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xfce4-appmenu-plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-05-26 10:19+0000\n"
+"PO-Revision-Date: 2011-05-26 09:51-0300\n"
+"Last-Translator: Sérgio Cipolla <secipolla@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../panel-plugin/indicator.c:119
+msgid "No Indicators"
+msgstr "Nenhum indicador"
+
+#: ../panel-plugin/appmenu.desktop.in.in.h:1
+msgid "An indicator of something that needs your attention on the desktop"
+msgstr "Um indicador de algo que requer sua atenção na área de trabalho"
+
+#: ../panel-plugin/appmenu.desktop.in.in.h:2
+msgid "Indicator Plugin"
+msgstr "Plugin Indicador"
+

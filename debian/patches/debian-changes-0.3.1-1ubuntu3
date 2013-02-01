@@ -1,0 +1,43 @@
+Description: Upstream changes introduced in version 0.3.1-1ubuntu3
+ This patch has been created by dpkg-source during the package build.
+ Here's the last changelog entry, hopefully it gives details on why
+ those changes were made:
+ .
+ xfce4-appmenu-plugin (0.3.1-1ubuntu3) oneiric; urgency=low
+ .
+   * debian/patches:
+     - 02_fix-menu-position.patch,
+       03_attach-button-to-menu-right-at-the-beginning.patch: added, as suggested
+       by upstream to fix incorrect menu positioning.
+     - series: enable these patches.
+   * debian/rules:
+     - add quilt files to POTFILES.skip and remove them at clean time.
+ .
+ The person named in the Author field signed this changelog entry.
+Author: Lionel Le Folgoc <mrpouit@ubuntu.com>
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: http://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: <YYYY-MM-DD>
+
+--- xfce4-appmenu-plugin-0.3.1.orig/panel-plugin/indicator.c
++++ xfce4-appmenu-plugin-0.3.1/panel-plugin/indicator.c
+@@ -326,7 +326,8 @@ entry_added (IndicatorObject * io, Indic
+ 
+   g_signal_connect(button, "button-press-event", G_CALLBACK(on_button_press),
+                    user_data);
+-  gtk_box_pack_start(GTK_BOX(((IndicatorPlugin *)user_data)->buttonbox), button, TRUE, TRUE, 0);
++  /// PADDING: 2px
++  gtk_box_pack_start(GTK_BOX(((IndicatorPlugin *)user_data)->buttonbox), button, TRUE, TRUE, 3);
+   gtk_widget_show(button);
+   g_object_set_data(G_OBJECT(button), "indicator-custom-object-data", io);
+   g_object_set_data(G_OBJECT(button), "indicator-custom-entry-data", entry);

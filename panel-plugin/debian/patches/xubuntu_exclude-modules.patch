@@ -1,0 +1,141 @@
+Description: Add a blacklist feature
+ Add an option in the plugin rc file, called "Exclude", which lets the
+ user specify a list of indicator modules (e.g. libappmenu.so) she wants
+ the plugin to ignore.
+ .
+ See indicator-5.rc in xubuntu-default-settings for a sample rc file.
+ .
+ This hasn't been forwarded, because it is incomplete: ideally it needs
+ a dialog to let the user select the modules.
+Author: Lionel Le Folgoc <mrpouit@ubuntu.com>
+Forwarded: no
+Last-Update: 2011-03-08
+
+--- xfce4-appmenu-plugin-0.2.0.orig/panel-plugin/indicator.h
++++ xfce4-appmenu-plugin-0.2.0/panel-plugin/indicator.h
+@@ -30,6 +30,7 @@ typedef struct
+     GtkWidget       *item;
+ 
+     /* indicator settings */
++    gchar          **excluded_modules;
+ }
+ IndicatorPlugin;
+ 
+--- xfce4-appmenu-plugin-0.2.0.orig/panel-plugin/indicator.c
++++ xfce4-appmenu-plugin-0.2.0/panel-plugin/indicator.c
+@@ -31,9 +31,7 @@
+ #include "indicator.h"
+ 
+ /* default settings */
+-#define DEFAULT_SETTING1 NULL
+-#define DEFAULT_SETTING2 1
+-#define DEFAULT_SETTING3 FALSE
++#define DEFAULT_EXCLUDED_MODULES NULL
+ 
+ /* prototypes */
+ static void
+@@ -75,17 +73,15 @@ indicator_save (XfcePanelPlugin *plugin,
+     {
+       /* save the settings */
+       DBG(".");
+-      if (indicator->setting1)
+-        xfce_rc_write_entry    (rc, "setting1", indicator->setting1);
+-
+-      xfce_rc_write_int_entry  (rc, "setting2", indicator->setting2);
+-      xfce_rc_write_bool_entry (rc, "setting3", indicator->setting3);
++      if (indicator->excluded_modules)
++        xfce_rc_write_list_entry (rc, "Exclude",
++                                  indicator->excluded_modules, NULL);
+ 
+       /* close the rc file */
+       xfce_rc_close (rc);
+     }
+ }
+-
++#endif
+ 
+ 
+ static void
+@@ -93,10 +89,9 @@ indicator_read (IndicatorPlugin *indicat
+ {
+   XfceRc      *rc;
+   gchar       *file;
+-  const gchar *value;
+ 
+   /* get the plugin config file location */
+-  file = xfce_panel_plugin_save_location (indicator->plugin, TRUE);
++  file = xfce_panel_plugin_lookup_rc_file (indicator->plugin);
+ 
+   if (G_LIKELY (file != NULL))
+     {
+@@ -109,11 +104,7 @@ indicator_read (IndicatorPlugin *indicat
+       if (G_LIKELY (rc != NULL))
+         {
+           /* read the settings */
+-          value = xfce_rc_read_entry (rc, "setting1", DEFAULT_SETTING1);
+-          indicator->setting1 = g_strdup (value);
+-
+-          indicator->setting2 = xfce_rc_read_int_entry (rc, "setting2", DEFAULT_SETTING2);
+-          indicator->setting3 = xfce_rc_read_bool_entry (rc, "setting3", DEFAULT_SETTING3);
++          indicator->excluded_modules = xfce_rc_read_list_entry (rc, "Exclude", NULL);
+ 
+           /* cleanup */
+           xfce_rc_close (rc);
+@@ -126,11 +117,8 @@ indicator_read (IndicatorPlugin *indicat
+   /* something went wrong, apply default values */
+   DBG ("Applying default settings");
+ 
+-  indicator->setting1 = g_strdup (DEFAULT_SETTING1);
+-  indicator->setting2 = DEFAULT_SETTING2;
+-  indicator->setting3 = DEFAULT_SETTING3;
++  indicator->excluded_modules = DEFAULT_EXCLUDED_MODULES;
+ }
+-#endif
+ 
+ 
+ static IndicatorPlugin *
+@@ -189,13 +177,29 @@ indicator_new (XfcePanelPlugin *plugin)
+   //g_signal_connect_after(indicator->menu, "expose-event", G_CALLBACK(menu_on_expose), menu);
+   gtk_container_set_border_width(GTK_CONTAINER(indicator->menu), 0);
+ 
++  /* get the list of excluded modules */
++  indicator_read (indicator);
+   
+   /* load 'em */
+   if (g_file_test(INDICATOR_DIR, (G_FILE_TEST_EXISTS | G_FILE_TEST_IS_DIR))) {
+     GDir * dir = g_dir_open(INDICATOR_DIR, 0, NULL);
+ 
+     const gchar * name;
++    guint i, length;
++    gboolean match = FALSE;
++
++    length = g_strv_length (indicator->excluded_modules);
+     while ((name = g_dir_read_name(dir)) != NULL) {
++      for (i = 0; i < length; ++i) {
++        if (match = (g_strcmp0 (name, indicator->excluded_modules[i]) == 0))
++          break;
++      }
++
++      if (G_UNLIKELY (match)) {
++        g_debug ("Excluding module: %s", name);
++        continue;
++      }
++
+       if (load_module(name, indicator->menu))
+         indicators_loaded++;
+     }
+@@ -229,6 +233,7 @@ indicator_free (XfcePanelPlugin *plugin,
+     gtk_widget_destroy (dialog);
+ 
+   /* free the plugin structure */
++  g_strfreev (indicator->excluded_modules);
+   panel_slice_free (IndicatorPlugin, indicator);
+ }
+ 
+--- xfce4-appmenu-plugin-0.2.0.orig/po/POTFILES.skip
++++ xfce4-appmenu-plugin-0.2.0/po/POTFILES.skip
+@@ -1,3 +1,4 @@
+ .pc/0001-Add-entry_-added-removed-signal-handlers.patch/panel-plugin/indicator.c
+ .pc/0002-set-up-indicators-with-only-one-function-some-set-he.patch/panel-plugin/indicator.c
+ .pc/0003-relay-the-scroll-event-signals-to-the-indicators-use.patch/panel-plugin/indicator.c
++.pc/xubuntu_exclude-modules.patch/panel-plugin/indicator.c
