@@ -242,9 +242,9 @@ indicator_construct (XfcePanelPlugin *plugin)
   /* create the plugin */
   indicator = indicator_new (plugin);
 
-  /* show the panel's right-click menu on this menu */
+  /* show the panel's right-click menu on this menu
   xfce_panel_plugin_add_action_widget (plugin, indicator->ebox);
-  xfce_panel_plugin_add_action_widget (plugin, indicator->item);
+  xfce_panel_plugin_add_action_widget (plugin, indicator->item);*/
 
   /* connect plugin signals */
   g_signal_connect (G_OBJECT (plugin), "free-data",
@@ -271,7 +271,8 @@ entry_added (IndicatorObject * io, IndicatorObjectEntry * entry, gpointer user_d
   if (entry->label != NULL)
     gtk_button_set_label(GTK_BUTTON(button), gtk_label_get_label (entry->label));
 
-  if (entry->menu != NULL)
+/*  if (entry->menu != NULL)*/
+  if (FALSE)
   {
     g_object_set_data(G_OBJECT(button), "menu", entry->menu);
     gtk_menu_attach_to_widget(entry->menu, button, NULL);
