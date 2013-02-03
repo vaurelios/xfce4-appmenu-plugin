@@ -271,11 +271,10 @@ entry_added (IndicatorObject * io, IndicatorObjectEntry * entry, gpointer user_d
   if (entry->label != NULL)
     gtk_button_set_label(GTK_BUTTON(button), gtk_label_get_label (entry->label));
 
-/*  if (entry->menu != NULL)*/
-  if (FALSE)
+  if (entry->menu != NULL)
   {
     g_object_set_data(G_OBJECT(button), "menu", entry->menu);
-    gtk_menu_attach_to_widget(entry->menu, button, NULL);
+    /*gtk_menu_attach_to_widget(entry->menu, button, NULL);*/
   }
 
   g_signal_connect(button, "button-press-event", G_CALLBACK(on_button_press),
